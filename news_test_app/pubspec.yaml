@@ -1,0 +1,89 @@
+name: news_test_app
+description: This project was developed by Alper Ragib Budak.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.5 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  get: ^4.6.5
+  sizer: ^2.0.15
+  webview_flutter: ^3.0.4
+  persistent_bottom_nav_bar: ^4.0.2
+  intl: ^0.17.0
+  cached_network_image: ^3.2.1
+  font_awesome_flutter: ^10.1.0
+  share_plus: ^4.0.10+1
+  sqflite: ^2.0.3+1
+  path: ^1.8.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - lib/assets/database/favorites.sqlite
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: lib/assets/fonts/Montserrat-Thin.ttf
+          weight: 100
+        - asset: lib/assets/fonts/Montserrat-ThinItalic.ttf
+          style: italic
+          weight: 100
+        - asset: lib/assets/fonts/Montserrat-ExtraLight.ttf
+          weight: 200
+        - asset: lib/assets/fonts/Montserrat-ExtraLightItalic.ttf
+          style: italic
+          weight: 200
+        - asset: lib/assets/fonts/Montserrat-Light.ttf
+          weight: 300
+        - asset: lib/assets/fonts/Montserrat-LightItalic.ttf
+          style: italic
+          weight: 300
+        - asset: lib/assets/fonts/Montserrat-Regular.ttf
+          weight: 400
+        - asset: lib/assets/fonts/Montserrat-Italic.ttf
+          style: italic
+          weight: 400
+        - asset: lib/assets/fonts/Montserrat-Medium.ttf
+          weight: 500
+        - asset: lib/assets/fonts/Montserrat-MediumItalic.ttf
+          style: italic
+          weight: 500
+        - asset: lib/assets/fonts/Montserrat-SemiBold.ttf
+          weight: 600
+        - asset: lib/assets/fonts/Montserrat-SemiBoldItalic.ttf
+          style: italic
+          weight: 600
+        - asset: lib/assets/fonts/Montserrat-Bold.ttf
+          weight: 700
+        - asset: lib/assets/fonts/Montserrat-BoldItalic.ttf
+          style: italic
+          weight: 700
+        - asset: lib/assets/fonts/Montserrat-ExtraBold.ttf
+          weight: 800
+        - asset: lib/assets/fonts/Montserrat-ExtraBoldItalic.ttf
+          style: italic
+          weight: 800
+        - asset: lib/assets/fonts/Montserrat-Black.ttf
+          weight: 900
+        - asset: lib/assets/fonts/Montserrat-BlackItalic.ttf
+          style: italic
+          weight: 900
