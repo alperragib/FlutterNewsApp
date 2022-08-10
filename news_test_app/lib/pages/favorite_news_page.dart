@@ -13,15 +13,12 @@ class FavoriteNewsPage extends StatefulWidget {
 }
 
 class _FavoriteNewsPageState extends State<FavoriteNewsPage> {
-
   MainController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-
         title: Text("Favorites"),
       ),
       body: SafeArea(
@@ -30,28 +27,30 @@ class _FavoriteNewsPageState extends State<FavoriteNewsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Obx(
-                    () => controller.favoritesNewsList.value.isEmpty
+                () => controller.favoritesNewsList.value.isEmpty
                     ? Center(
-                  child: Container(
-                      margin: EdgeInsets.only(top: 6.w),
-                      child: Text("You have no news added to favorites.")),
-                )
+                        child: Container(
+                            margin: EdgeInsets.only(top: 6.w),
+                            child:
+                                Text("You have no news added to favorites.")),
+                      )
                     : ListView.builder(
-                  itemCount: controller.favoritesNewsList.value.length,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    return NewsListView(
-                        news: controller.favoritesNewsList.value[index]);
-                  },
-                ),
+                        itemCount: controller.favoritesNewsList.value.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          return NewsListView(
+                              news: controller.favoritesNewsList.value[index]);
+                        },
+                      ),
               ),
-              SizedBox(height: 8.w,),
+              SizedBox(
+                height: 8.w,
+              ),
             ],
           ),
         ),
       ),
-
     );
   }
 }

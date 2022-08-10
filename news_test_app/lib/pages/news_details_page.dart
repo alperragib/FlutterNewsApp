@@ -56,7 +56,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
               color: Colors.white,
             ),
             onPressed: () {
-              ApiController().favoritesAddNews(context, widget.news);
+              ApiController().favoritesAddRemoveNews(context, widget.news);
             },
           ),
         ],

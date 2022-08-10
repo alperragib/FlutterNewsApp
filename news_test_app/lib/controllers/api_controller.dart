@@ -49,9 +49,9 @@ class ApiController extends GetConnect {
     if (await databaseExists(path)) {
     } else {
       ByteData data =
-      await rootBundle.load("lib/assets/database/favorites.sqlite");
+          await rootBundle.load("lib/assets/database/favorites.sqlite");
       List<int> bytes =
-      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(path).writeAsBytes(bytes, flush: true);
     }
 
@@ -61,10 +61,10 @@ class ApiController extends GetConnect {
   Future<void> favoritesRead() async {
     Database db = await favoritesDB();
 
-    controller.favoritesNewsList.value.clear();
+    List<NewsModel> favList = [];
 
     List<Map> newsList =
-    await db.rawQuery("SELECT * FROM favorite_news ORDER BY title ASC");
+        await db.rawQuery("SELECT * FROM favorite_news ORDER BY title ASC");
 
     for (var item in newsList) {
       String title = item['title'].toString();
@@ -75,41 +75,22 @@ class ApiController extends GetConnect {
       String source_url = item['source_url'].toString();
       String date = item['date'].toString();
 
-      controller.favoritesNewsList.value.add(NewsModel(title, desc, content, image_url,
-          source_name, source_url, DateTime.parse(date)));
+      favList.add(NewsModel(title, desc, content, image_url, source_name,
+          source_url, DateTime.parse(date)));
     }
+
+    controller.favoritesNewsList.value = favList;
   }
 
-  Future<void> favoritesAddNews(BuildContext context, NewsModel news) async {
+  Future<void> favoritesAddRemoveNews(
+      BuildContext context, NewsModel news) async {
     Database db = await favoritesDB();
-    bool isSaved = false;
-    List<Map> newsList =
-    await db.rawQuery("SELECT * FROM favorite_news ORDER BY title ASC");
-    for (var item in newsList) {
-      String title = item['title'].toString();
-      String desc = item['desc'].toString();
-      String content = item['content'].toString();
-      String image_url = item['image_url'].toString();
-      String source_name = item['source_name'].toString();
-      String source_url = item['source_url'].toString();
-      String date = item['date'].toString();
+    List<Map> newsList = await db.rawQuery(
+        'SELECT * FROM favorite_news WHERE title = "${news.title}" AND desc = "${news.desc}" AND content = "${news.content}" AND image_url = "${news.image_url}" AND source_name = "${news.source_name}" AND source_url = "${news.source_url}" AND date = "${DateFormat('yyyy-MM-dd HH:mm:ss').format(news.date)}"');
 
-      if (title == news.title &&
-          desc == news.desc &&
-          content == news.content &&
-          image_url == news.image_url &&
-          source_name == news.source_name &&
-          source_url == news.source_url &&
-          DateTime.parse(date) == news.date) {
-        isSaved = true;
-        break;
-      }
-    }
-
-    if (isSaved) {
+    if (newsList.isNotEmpty) {
       await db.rawDelete(
           'DELETE FROM favorite_news WHERE title = "${news.title}" AND desc = "${news.desc}" AND content = "${news.content}" AND image_url = "${news.image_url}" AND source_name = "${news.source_name}" AND source_url = "${news.source_url}" AND date = "${DateFormat('yyyy-MM-dd HH:mm:ss').format(news.date)}"');
-
 
       await favoritesRead();
       Get.snackbar(
@@ -117,7 +98,7 @@ class ApiController extends GetConnect {
           colorText: Colors.black,
           backgroundColor: Colors.white.withOpacity(0.5));
     } else {
-      var info = Map<String, dynamic>();
+      var info = <String, dynamic>{};
 
       info["title"] = news.title;
       info["desc"] = news.desc;

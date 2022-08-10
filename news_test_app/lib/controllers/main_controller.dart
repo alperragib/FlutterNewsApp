@@ -16,7 +16,6 @@ class MainController extends GetxController {
     super.onReady();
 
     ApiController().getNews();
-
     ApiController().favoritesRead();
   }
 
